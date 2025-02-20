@@ -1,23 +1,27 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.25;
+pragma solidity 0.8.28;
 
-/**
- * ██      ███████  ██████  ██  ██████  ███    ██
- * ██      ██      ██       ██ ██    ██ ████   ██
- * ██      █████   ██   ███ ██ ██    ██ ██ ██  ██
- * ██      ██      ██    ██ ██ ██    ██ ██  ██ ██
- * ███████ ███████  ██████  ██  ██████  ██   ████
- *
- * If you find a bug, please contact security(at)legion.cc
- * We will pay a fair bounty for any issue that puts user's funds at risk.
- *
- */
+//       ___       ___           ___                       ___           ___
+//      /\__\     /\  \         /\  \          ___        /\  \         /\__\
+//     /:/  /    /::\  \       /::\  \        /\  \      /::\  \       /::|  |
+//    /:/  /    /:/\:\  \     /:/\:\  \       \:\  \    /:/\:\  \     /:|:|  |
+//   /:/  /    /::\~\:\  \   /:/  \:\  \      /::\__\  /:/  \:\  \   /:/|:|  |__
+//  /:/__/    /:/\:\ \:\__\ /:/__/_\:\__\  __/:/\/__/ /:/__/ \:\__\ /:/ |:| /\__\
+//  \:\  \    \:\~\:\ \/__/ \:\  /\ \/__/ /\/:/  /    \:\  \ /:/  / \/__|:|/:/  /
+//   \:\  \    \:\ \:\__\    \:\ \:\__\   \::/__/      \:\  /:/  /      |:/:/  /
+//    \:\  \    \:\ \/__/     \:\/:/  /    \:\__\       \:\/:/  /       |::/  /
+//     \:\__\    \:\__\        \::/  /      \/__/        \::/  /        /:/  /
+//      \/__/     \/__/         \/__/                     \/__/         \/__/
+//
+// If you find a bug, please contact security[at]legion.cc
+// We will pay a fair bounty for any issue that puts users' funds at risk.
+
 interface ILegionVestingFactory {
     /**
      * @notice This event is emitted when a new linear vesting schedule contract is deployed for an investor.
      *
      * @param beneficiary The address of the beneficiary.
-     * @param startTimestamp The start timestamp of the vesting period.
+     * @param startTimestamp The Unix timestamp (seconds) when the vesting period starts.
      * @param durationSeconds The vesting duration in seconds.
      * @param cliffDurationSeconds The vesting cliff duration in seconds.
      */
@@ -28,19 +32,19 @@ interface ILegionVestingFactory {
     /**
      * @notice Deploy a LegionLinearVesting contract.
      *
-     * @dev Can be called only by addresses allowed to deploy.
+     * @param beneficiary The address of the beneficiary.
+     * @param startTimestamp The Unix timestamp (seconds) when the vesting starts.
+     * @param durationSeconds The total duration of the vesting period in seconds.
+     * @param cliffDurationSeconds The duration of the cliff period in seconds.
      *
-     * @param beneficiary The beneficiary.
-     * @param startTimestamp The start timestamp.
-     * @param durationSeconds The duration in seconds.
-     * @param cliffDurationSeconds The cliff duration in seconds.
-     *
-     * @return linearVestingInstance The address of the deployed linearVesting instance.
+     * @return linearVestingInstance The address of the deployed LegionLinearVesting instance.
      */
     function createLinearVesting(
         address beneficiary,
         uint64 startTimestamp,
         uint64 durationSeconds,
         uint64 cliffDurationSeconds
-    ) external returns (address payable linearVestingInstance);
+    )
+        external
+        returns (address payable linearVestingInstance);
 }
